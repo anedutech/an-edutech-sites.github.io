@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>An EduTech • Programación y Robótica para niños en Panamá Oeste</title>
+  <meta name="description" content="Programa Ed ucativo para niños desde los 4 años donde exploramos programación y robótica de forma divertida y práctica. Arraiján, Panamá Oeste.">
+  <meta property="og:title" content="An EduTech — Programación para niños en Panamá Oeste">
+  <meta property="og:description" content="Tus hijos aprenden a crear tecnología, no solo a usarla. Scratch, Makey Makey y proyectos STEAM.">
+  <meta property="og:image" content="images/logo.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;family=Fredoka:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ─── VARIABLES (Opción 1 identity) ─── */
+    :root {
+      --navy:      #1E3A5F;
+      --navy-dark: #0f2440;
+      --navy-mid:  #2a4f82;
+      --orange:    #FF6B35;
+      --green:     #4CAF7D;
+      --yellow:    #FFD166;
+      --sky:       #E8F4FD;
+      --white:     #FFFFFF;
+      --text:      #2D3748;
+      --muted:     #718096;
+      --border:    #E2E8F0;
+      --zinc50:    #fafafa;
+      --zinc100:   #f4f4f5;
+      --zinc200:   #e4e4e7;
+      --zinc800:   #27272a;
+      --radius:    16px;
+      --radius-xl: 24px;
+      --shadow:    0 4px 24px rgba(30,58,95,0.10);
+      --shadow-lg: 0 12px 48px rgba(30,58,95,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── UTILITIES ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 99px;
+      font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px;
+      cursor: pointer; border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .btn-primary  { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: #e85a28; }
+    .btn-outline  { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.5); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+    .btn-dark     { background: var(--navy); color: #fff; }
+    .btn-dark:hover { background: var(--navy-mid); }
+    .section-label {
+      display: inline-block;
+      background: var(--sky); color: var(--navy);
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+    }
+    h2 {
+      font-family: 'Fredoka', sans-serif; font-weight: 700;
+      font-size: clamp(28px, 4.5vw, 44px); color: var(--navy);
+      line-height: 1.12; margin-bottom: 16px;
+    }
+    h2 .highlight {
+      color: var(--orange);
+      position: relative;
+      display: inline-block;
+    }
+    h2 .hi { color: var(--orange); }
+    .lead { color: var(--muted); font-size: 17px; line-height: 1.75; }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 20px; color: var(--navy); }
+    .logo img { height: 40px; width: 40px; object-fit: contain; border-radius: 50%; }
+    .logo-text span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--navy); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-direction: column; gap: 5px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 99px; display: block; transition: all 0.3s; }
+    .mobile-menu { display: none; flex-direction: column; padding: 16px 28px 24px; border-top: 1px solid var(--border); gap: 16px; }
+    .mobile-menu a { font-weight: 600; font-size: 16px; color: var(--text); }
+    .mobile-menu.open { display: flex; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, #1a3357 100%);
+      color: white; padding: 96px 0 0; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,107,53,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,209,102,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* Floating bubbles */
+    .bubble { position: absolute; background: rgba(255,255,255,0.18); border-radius: 50%; animation: floatUp 20s infinite linear; pointer-events: none; }
+    @keyframes floatUp { 0% { transform: translateY(100%) scale(1); opacity: 0.6; } 100% { transform: translateY(-100vh) scale(0.4); opacity: 0; } }
+
+    .hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+      padding: 7px 18px; border-radius: 99px; font-size: 12px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero-badge .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+    .hero h1 { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(36px, 5.5vw, 62px); line-height: 1.05; margin-bottom: 22px; }
+    .hero h1 em { font-style: normal; color: var(--yellow); }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,0.80); line-height: 1.7; margin-bottom: 36px; max-width: 500px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-stats { display: flex; gap: 32px; margin-top: 44px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.15); flex-wrap: wrap; }
+    .hero-stat-num { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 30px; color: var(--yellow); }
+    .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.60); margin-top: 2px; }
+
+    /* Hero right visual (Opción 2 style) */
+    .hero-visual { position: relative; }
+    .hero-screen {
+      background: rgba(255,255,255,0.10); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 28px;
+      padding: 10px; box-shadow: var(--shadow-lg);
+    }
+    .hero-screen-inner { background: white; border-radius: 20px; overflow: hidden; }
+    .screen-bar { height: 32px; background: var(--zinc100); display: flex; align-items: center; padding: 0 14px; gap: 6px; }
+    .screen-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .screen-dot:nth-child(1) { background: #ff5f57; }
+    .screen-dot:nth-child(2) { background: #febc2e; }
+    .screen-dot:nth-child(3) { background: #28c840; }
+    .screen-body {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    }
+    .code-snippet {
+      position: absolute; top: 16px; left: 16px;
+      background: rgba(0,0,0,0.75); color: #86efac;
+      font-family: monospace; font-size: 10px; padding: 12px; border-radius: 10px; line-height: 1.8;
+    }
+    .code-snippet .kw { color: #fde047; }
+    .code-snippet .fn { color: #93c5fd; }
+    .robot-emoji { font-size: 72px; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3)); animation: wave 3s ease-in-out infinite; }
+    @keyframes wave { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} }
+    .live-badge {
+      position: absolute; bottom: 14px; right: 14px;
+      background: white; color: var(--text); font-size: 11px; font-weight: 600;
+      padding: 6px 12px; border-radius: 99px; display: flex; align-items: center; gap: 6px;
+    }
+    .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    .hero-float {
+      position: absolute; background: white; border-radius: var(--radius);
+      padding: 12px 16px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px;
+    }
+    .hero-float.f1 { bottom: -20px; left: -28px; }
+    .hero-float.f2 { top: -20px; right: -12px; }
+    .float-icon { font-size: 26px; }
+    .float-label { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 13px; color: var(--navy); }
+    .float-sub { font-size: 11px; color: var(--muted); }
+
+    /* Wave divider */
+    .wave-bottom { display: block; width: 100%; color: var(--white); margin-bottom: -2px; }
+
+    /* ─── LOGOS BAR ─── */
+    .logos-bar { background: white; border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .logos-inner { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px 36px; opacity: 0.38; }
+    .logos-inner span { font-size: 16px; font-weight: 700; letter-spacing: -0.5px; }
+    .l-orange { color: #ea580c; }
+    .l-violet { color: #7c3aed; }
+    .l-rose   { color: #e11d48; }
+    .l-sky    { color: #0284c7; }
+    .l-sep    { width: 1px; height: 20px; background: var(--border); display: block; }
+
+    /* ─── NOSOTROS ─── */
+    .nosotros { padding: 96px 0; }
+    .nosotros-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; align-items: center; }
+    .nosotros-left .section-label { }
+    .nosotros-left h2 { }
+    .nosotros-left p { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 40px; }
+    .nosotros-nums { display: flex; gap: 36px; flex-wrap: wrap; }
+    .nos-num { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 44px; color: var(--yellow); line-height: 1; }
+    .nos-label { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px; }
+    .nos-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .nos-card {
+      background: white; border-radius: var(--radius-xl); border: 1px solid var(--border);
+      padding: 28px; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .nos-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(76,175,125,0.3); }
+    .nos-card:nth-child(2) { margin-top: 28px; }
+    .nos-bar { height: 4px; width: 52px; border-radius: 99px; margin-bottom: 20px; }
+    .bar-orange { background: var(--orange); }
+    .bar-sky    { background: #0ea5e9; }
+    .nos-num-big { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 52px; color: var(--zinc200); line-height: 1; margin-bottom: 8px; }
+    .nos-title { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 20px; color: var(--navy); margin-bottom: 10px; }
+    .nos-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+    .nos-img { width: 100%; border-radius: 12px; aspect-ratio: 16/9; object-fit: cover; }
+    .nos-img-ph { width: 100%; border-radius: 12px; aspect-ratio: 16/9; background: var(--sky); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--muted); }
+
+    /* ─── PROGRAMAS ─── */
+    .programas { background: var(--navy-dark); padding: 96px 0; color: white; }
+    .programas-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 16px; }
+    .programas-header .section-label { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.8); }
+    .programas-header h2 { color: white; margin-bottom: 0; }
+    .programas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .prog-card {
+      background: white; border-radius: var(--radius-xl); overflow: hidden; color: var(--text);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .prog-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
+    .prog-card.popular { border: 2.5px solid var(--green); position: relative; }
+    .popular-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--green); color: white;
+      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 1px;
+      padding: 4px 12px; border-radius: 99px;
+    }
+    .prog-stripe { height: 5px; }
+    .prog-body { padding: 28px; }
+    .prog-age { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 12px; border-radius: 99px; margin-bottom: 14px; }
+    .age-violet { background: #ede9fe; color: #6d28d9; }
+    .age-green  { background: #dcfce7; color: #15803d; }
+    .age-amber  { background: #fef3c7; color: #92400e; }
+    .prog-title { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 24px; color: var(--navy); margin-bottom: 6px; }
+    .prog-weeks { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+    .prog-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .prog-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); }
+    .prog-features li i { color: var(--green); width: 14px; }
+    .prog-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .prog-chip { background: var(--sky); color: var(--navy); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 99px; }
+    .prog-btn {
+      width: 100%; padding: 16px; text-align: center;
+      background: var(--navy-dark); color: white;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 14px;
+      letter-spacing: 0.5px; transition: background 0.2s;
+    }
+    .prog-btn:hover { background: var(--navy); }
+    .prog-btn.btn-green { background: var(--green); }
+    .prog-btn.btn-green:hover { background: #3da86d; }
+
+    /* ─── GALERÍA ─── */
+    .galeria { padding: 96px 0; }
+    .galeria-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 12px; }
+    .galeria-header h2 { margin-bottom: 0; }
+    .galeria-link { color: var(--orange); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; cursor: pointer; }
+    .galeria-link:hover { gap: 10px; }
+    .galeria-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .galeria-item {
+      aspect-ratio: 1; border-radius: var(--radius); overflow: hidden;
+      cursor: pointer; position: relative; group: true;
+      background: var(--sky);
+    }
+    .galeria-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .galeria-item:hover .galeria-img { transform: scale(1.08); }
+    .galeria-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(30,58,95,0.85), transparent);
+      padding: 20px 16px 14px;
+      color: white; font-size: 13px; font-weight: 600;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .galeria-item:hover .galeria-caption { opacity: 1; }
+    .galeria-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 36px; }
+    .galeria-ph span { font-size: 11px; text-align: center; }
+
+    /* ─── TESTIMONIOS ─── */
+    .testimonios { background: var(--sky); padding: 96px 0; }
+    .testimonios-header { text-align: center; margin-bottom: 52px; }
+    .testimonios-header .lead { margin: 0 auto; max-width: 520px; }
+    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .test-card { background: white; border-radius: var(--radius-xl); padding: 32px; box-shadow: var(--shadow); }
+    .test-stars { color: var(--yellow); font-size: 18px; margin-bottom: 16px; }
+    .test-text { font-size: 14px; line-height: 1.75; color: var(--text); font-style: italic; margin-bottom: 24px; }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px; color: white; flex-shrink: 0; }
+    .av-orange  { background: linear-gradient(135deg, var(--orange), #ff9a5c); }
+    .av-purple  { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+    .av-teal    { background: linear-gradient(135deg, #0d9488, #2dd4bf); }
+    .test-name { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 14px; color: var(--navy); }
+    .test-role { font-size: 12px; color: var(--muted); }
+
+    /* ─── PROCESO ─── */
+    .proceso { padding: 96px 0; }
+    .proceso-header { text-align: center; margin-bottom: 56px; }
+    .pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+    .pasos-grid::before {
+      content: ''; position: absolute; top: 36px;
+      left: calc(12.5% + 20px); right: calc(12.5% + 20px);
+      height: 2px;
+      background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 8px, transparent 8px, transparent 16px);
+    }
+    .paso { text-align: center; padding: 0 8px; }
+    .paso-num {
+      width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 26px; color: white;
+      position: relative; z-index: 1;
+    }
+    .pn-1 { background: var(--navy); }
+    .pn-2 { background: var(--orange); }
+    .pn-3 { background: var(--green); }
+    .pn-4 { background: var(--yellow); color: var(--navy); }
+    .paso-title { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px; color: var(--navy); margin-bottom: 8px; }
+    .paso-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--orange) 0%, #e85520 100%);
+      padding: 72px 0; color: white; text-align: center;
+    }
+    .cta-banner h2 { color: white; font-size: clamp(26px, 4vw, 42px); margin-bottom: 12px; }
+    .cta-banner p { color: rgba(255,255,255,0.85); font-size: 17px; max-width: 400px; margin: 0 auto 36px; }
+    .cta-banner .btn-white { background: white; color: var(--orange); font-size: 17px; padding: 18px 40px; }
+    .cta-banner .btn-white:hover { background: #fff8f6; }
+    .cta-guarantees { display: flex; justify-content: center; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+    .cta-guarantees span { font-size: 13px; color: rgba(255,255,255,0.80); display: flex; align-items: center; gap: 6px; }
+
+    /* ─── INSCRIPCIÓN ─── */
+    .inscripcion { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); padding: 96px 0; color: white; }
+    .inscripcion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .inscripcion-left h2 { color: white; }
+    .inscripcion-left .section-label { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+    .inscripcion-left > p { color: rgba(255,255,255,0.75); font-size: 16px; line-height: 1.75; margin-bottom: 32px; }
+    .contact-items { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item { display: flex; align-items: center; gap: 14px; font-size: 14px; color: rgba(255,255,255,0.82); }
+    .contact-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .contact-item a { transition: color 0.2s; }
+    .contact-item a:hover { color: var(--yellow); }
+    .form-card { background: white; border-radius: 24px; padding: 40px 36px; box-shadow: var(--shadow-lg); }
+    .form-title { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 4px; }
+    .form-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 14px 18px;
+      border: 2px solid var(--border); border-radius: 14px;
+      font-family: 'Poppins', sans-serif; font-size: 14px; color: var(--text);
+      transition: border-color 0.2s; outline: none; background: white;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--navy); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-submit {
+      width: 100%; padding: 17px; margin-top: 8px;
+      background: linear-gradient(135deg, var(--green), #3da86d);
+      color: white; border: none; border-radius: 14px;
+      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(76,175,125,0.40); }
+    .form-disclaimer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success-icon { font-size: 56px; margin-bottom: 16px; }
+    .form-success h3 { font-family: 'Fredoka', sans-serif; font-weight: 700; color: var(--navy); font-size: 22px; margin-bottom: 10px; }
+    .form-success p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy-dark); color: rgba(255,255,255,0.55); }
+    .footer-body { padding: 64px 0 40px; display: grid; grid-template-columns: 5fr 2fr 2fr 3fr; gap: 40px; }
+    .footer-brand .logo { color: white; margin-bottom: 14px; font-size: 22px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 260px; }
+    .footer-socials { display: flex; gap: 14px; margin-top: 24px; }
+    .social-btn { width: 38px; height: 38px; background: rgba(255,255,255,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.2s; cursor: pointer; color: rgba(255,255,255,0.7); }
+    .social-btn:hover { background: rgba(255,255,255,0.18); color: white; }
+    .footer-col h4 { font-family: 'Fredoka', sans-serif; font-weight: 700; color: rgba(255,255,255,0.4); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul li { font-size: 13px; cursor: pointer; transition: color 0.2s; }
+    .footer-col ul li:hover { color: white; }
+    .footer-newsletter { background: rgba(255,255,255,0.06); border-radius: var(--radius); padding: 24px; }
+    .footer-newsletter h4 { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+    .footer-newsletter p { font-size: 12px; line-height: 1.6; margin-bottom: 16px; }
+    .newsletter-form { display: flex; }
+    .newsletter-form input { flex: 1; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 12px 16px; border-radius: 10px 0 0 10px; font-size: 13px; outline: none; }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .newsletter-form input:focus { border-color: rgba(255,255,255,0.35); }
+    .newsletter-form button { background: var(--orange); color: white; border: none; padding: 12px 18px; border-radius: 0 10px 10px 0; cursor: pointer; font-size: 13px; font-weight: 700; transition: background 0.2s; }
+    .newsletter-form button:hover { background: #e85a28; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.10); padding: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 12px; }
+    .footer-bottom-links { display: flex; gap: 20px; font-size: 12px; }
+    .footer-bottom-links span { cursor: pointer; transition: color 0.2s; }
+    .footer-bottom-links span:hover { color: white; }
+    .status-dot { display: flex; align-items: center; gap: 6px; }
+    .status-dot::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: block; animation: pulse 2s infinite; }
+
+    /* ─── MODALS ─── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(15,36,64,0.80); backdrop-filter: blur(4px);
+      z-index: 9999; align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white; border-radius: 24px; max-width: 520px; width: calc(100% - 40px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.30); animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(30px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+    .modal-header { padding: 28px 32px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-header h3 { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); }
+    .modal-close { background: none; border: none; font-size: 28px; color: var(--muted); cursor: pointer; line-height: 1; padding: 0 4px; transition: color 0.2s; }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 28px 32px 32px; }
+    .modal-form .form-group label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .modal-form .form-submit { background: linear-gradient(135deg, var(--orange), #e85520); }
+    .modal-form .form-submit:hover { box-shadow: 0 8px 28px rgba(255,107,53,0.40); }
+    .contact-options { display: flex; flex-direction: column; gap: 14px; }
+    .contact-option {
+      display: flex; align-items: center; justify-content: space-between;
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px;
+      transition: border-color 0.2s, box-shadow 0.2s; cursor: pointer;
+    }
+    .contact-option:hover { border-color: var(--green); box-shadow: var(--shadow); }
+    .co-left { display: flex; align-items: center; gap: 16px; }
+    .co-icon { font-size: 32px; }
+    .co-label { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 15px; color: var(--navy); }
+    .co-value { font-size: 13px; color: var(--green); }
+    .modal-success { text-align: center; padding: 20px 16px 8px; }
+    .modal-success .si { font-size: 56px; margin-bottom: 16px; }
+    .modal-success h3 { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 8px; }
+    .modal-success p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+    /* Photo viewer */
+    .photo-viewer {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92); z-index: 99999;
+      align-items: center; justify-content: center;
+    }
+    .photo-viewer.open { display: flex; }
+    .pv-inner { max-width: 680px; width: calc(100% - 40px); position: relative; }
+    .pv-img { width: 100%; border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+    .pv-caption { color: rgba(255,255,255,0.75); text-align: center; margin-top: 16px; font-size: 14px; }
+    .pv-close { position: absolute; top: -16px; right: -16px; width: 40px; height: 40px; background: white; color: var(--text); border: none; border-radius: 12px; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); }
+
+    /* WA float */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 20px rgba(37,211,102,0.45); z-index: 998; transition: transform 0.2s; }
+    .wa-float:hover { transform: scale(1.12); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .programas-grid { grid-template-columns: 1fr 1fr; }
+      .footer-body { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .nosotros-grid { grid-template-columns: 1fr; }
+      .nos-cards-grid { grid-template-columns: 1fr 1fr; }
+      .inscripcion-grid { grid-template-columns: 1fr; }
+      .nav-links, .nav-cta .btn { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 680px) {
+      .programas-grid { grid-template-columns: 1fr; }
+      .test-grid { grid-template-columns: 1fr; }
+      .pasos-grid { grid-template-columns: 1fr 1fr; }
+      .pasos-grid::before { display: none; }
+      .galeria-grid { grid-template-columns: 1fr 1fr; }
+      .footer-body { grid-template-columns: 1fr; }
+      .footer-col:nth-child(2), .footer-col:nth-child(3) { display: none; }
+    }
+    @media (max-width: 480px) {
+      .pasos-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .nos-cards-grid { grid-template-columns: 1fr; }
+      .nos-card:nth-child(2) { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <img src="images/logo.jpg" alt="An EduTech logo">
+        <div class="logo-text">An <span>EduTech</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#programas">Programas</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><!--a href="#testimonios">Testimonios</a--></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button onclick="openContactModal()" class="btn btn-dark" style="font-size:13px;padding:10px 20px;">Contacto</button>
+        <button onclick="openInscModal()" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Inscríbete</button>
+        <button class="hamburger" onclick="toggleMobile()" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#nosotros" onclick="toggleMobile()">Nosotros</a>
+    <a href="#programas" onclick="toggleMobile()">Programas</a>
+    <a href="#galeria" onclick="toggleMobile()">Galería</a>
+    <a href="#testimonios" onclick="toggleMobile()">Testimonios</a>
+    <button onclick="toggleMobile();openContactModal();" class="btn btn-dark" style="justify-content:center">Contacto</button>
+    <button onclick="toggleMobile();openInscModal();" class="btn btn-primary" style="justify-content:center"><i class="fa-solid fa-rocket"></i> Inscríbete</button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="inicio">
+  <div id="bubbles-wrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Descubre el poder de aprender haciendo
+        </div>
+        <h1>El futuro se <em>PROGRAMA</em> desde pequeños</h1>
+        <p class="hero-sub" style="text-align: justify;">Clases prácticas de programación y robótica para niños desde los 4 años. Donde la tecnología, la creatividad y la innovación se convierten en herramientas para desarrollar habilidades.</p>
+        <div class="hero-actions">
+          <button onclick="openInscModal()" class="btn btn-primary" style="font-size:17px;padding:18px 36px;">Inscribir ahora <i class="fa-solid fa-arrow-right"></i></button>
+          <a href="#galeria" class="btn btn-outline"><i class="fa-solid fa-camera"></i> Ver clases reales</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-screen">
+          <div class="hero-screen-inner">
+            <div class="screen-bar">
+              <div class="screen-dot"></div><div class="screen-dot"></div><div class="screen-dot"></div>
+            </div>
+            <div class="screen-body">
+              <div class="code-snippet">
+                <div class="kw">function</div>
+                <div><span class="fn">crearJuego</span>() {</div>
+                <div>&nbsp;&nbsp;moverPersonaje()</div>
+                <div>&nbsp;&nbsp;sumarPuntos()</div>
+                <div>}</div>
+              </div>
+              <div class="robot-emoji">🤖</div>
+              <div class="live-badge"><div class="live-dot"></div> EN CLASE</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-float f1">
+          <span class="float-icon">💻</span>
+          <div>
+            <div class="float-label">Cada clase</div>
+            <div class="float-sub">es una experiencia diferente</div>
+          </div>
+        </div>
+        <div class="hero-float f2">
+          <span class="float-icon">🗓️</span>
+          <div>
+            <div class="float-label">Incripciones desde</div>
+            <div class="float-sub">15 de junio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg class="wave-bottom" viewBox="0 0 1440 80" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,32L48,37.3C96,43,192,53,288,53.3C384,53,480,43,576,37.3C672,32,768,32,864,37.3C960,43,1056,53,1152,53.3C1248,53,1344,43,1392,37.3L1440,32L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"></path>
+  </svg>
+</section>
+
+<!-- ═══ LOGOS BAR ═══ -->
+<div class="logos-bar">
+  <div class="container">
+    <div class="logos-inner">
+      <span class="l-orange">SCRATCH</span>
+      <span class="l-sep"></span>
+      <span class="l-gray">mBot</span>
+      <span class="l-sep"></span>
+      <span class="l-violet">Arduino</span>
+      <span class="l-sep"></span>
+      <span class="l-rose">Makey Makey</span>
+      <span class="l-sep"></span>
+      <span class="l-sky">Botley</span>
+      <span class="l-sep"></span>
+      <span style="color:#0369a1;font-weight:700;">TINKERCAD</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NOSOTROS ═══ -->
+<section class="nosotros" id="nosotros">
+  <div class="container">
+    <div class="nosotros-grid">
+      <div class="nosotros-left">
+        <span class="section-label">Sobre nosotros</span>
+        <h2>Aprender tecnología de forma <span class="hi">divertida</span></h2>
+        <p style="text-align: justify;">
+            En An EduTech creemos que todos los niños pueden convertirse en creadores digitales. 
+            Nuestra metodología está basada en proyectos, donde aprenden haciendo, construyendo 
+            y creando desde el primer día; aquí, el ensayo y el error no son fallos, sino partes 
+            fundamentales del proceso de aprendizaje.<br><br>
+            No nos limitamos solo a enseñar a programar; nuestro enfoque transforma la tecnología 
+            en una aventura divertida. Integramos desafíos de lógica y actividades desenchufadas 
+            diseñadas para fortalecer la comunicación y el trabajo en equipo.
+        </p>
+        <div class="nosotros-nums">
+          <div>
+            <div class="nos-num">2</div>
+            <div class="nos-label">años de </br> experiencia</div>
+          </div>
+          <div>
+            <div class="nos-num">3</div>
+            <div class="nos-label">Programas</br> disponibles</div>
+          </div>
+          <div>
+            <div class="nos-num">100%</div>
+            <div class="nos-label">Proyectos </br> prácticos</div>
+          </div>
+        </div>
+      </div>
+      <div class="nos-cards-grid">
+        <div class="nos-card">
+          <div class="nos-bar bar-orange"></div>
+          <div class="nos-num-big">01</div>
+          <div class="nos-title">Clases pequeñas</div>
+          <p class="nos-desc" style="text-align: justify;">Máximo 7 niños por grupo para garantizar atención personalizada de calidad.</p>
+          <img src="images/grupo pequeño.webp" alt="Clase pequeña" class="nos-img">
+        </div>
+        <div class="nos-card">
+          <div class="nos-bar bar-sky"></div>
+          <div class="nos-num-big">02</div>
+          <div class="nos-title">Materiales incluidos</div>
+          <p class="nos-desc" style="text-align: justify;">Incluimos todos los materiales tecnológicos y de trabajo necesarios, para que las herramientas nunca sean una barrera en el aprendizaje.</p>
+          <img src="images/mbot.webp" alt="Materiales incluidos" class="nos-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRAMAS ═══ -->
+<section class="programas" id="programas">
+  <div class="container">
+    <div class="programas-header">
+      <div>
+        <span class="section-label">Nuestros programas</span>
+        <h2>Elige el programa <span class="highlight">perfecto</span></h2>
+      </div>
+    </div>
+    <div class="programas-grid">
+      <!-- Programa 1 -->
+      <div class="prog-card">
+        <div class="prog-stripe" style="background:linear-gradient(90deg,#7c3aed,#c026d3);"></div>
+        <div class="prog-body">
+          <span class="prog-age age-violet">4 – 6 años</span>
+          <div class="prog-title">Ingenieros Junior</div>
+          <div class="prog-weeks"><i class="fa-regular fa-calendar"></i> Mensual · 2 horas · Sin pantalla</div>
+          <ul class="prog-features">
+            <li><i class="fa-solid fa-check"></i> Actividades STEAM 100% prácticas</li>
+            <li><i class="fa-solid fa-check"></i> Construcción y diseño creativo</li>
+            <li><i class="fa-solid fa-check"></i> Pensamiento lógico y trabajo en equipo</li>
+          </ul>
+          <div class="prog-chips">
+            <span class="prog-chip">🔬 STEAM</span>
+            <span class="prog-chip">🛠️ Botley</span>
+          </div>
+          <button class="prog-btn" onclick="openInscModal()">RESERVAR CUPO</button>
+        </div>
+      </div>  
+      <!-- Programa 2  — Popular-->
+      <div class="prog-card popular">
+        <span class="popular-badge">MÁS POPULAR</span>
+        <div class="prog-stripe" style="background:linear-gradient(90deg,var(--green),#2dd4bf);"></div>
+        <div class="prog-body">
+          <span class="prog-age age-green">7 – 11 años</span>
+          <div class="prog-title">Programación Básica</div>
+          <div class="prog-weeks"><i class="fa-regular fa-calendar"></i> Sábados • 12 hrs • 6 clases</div>
+          <ul class="prog-features">
+            <li><i class="fa-solid fa-check"></i> Animaciones y videojuegos con Scratch</li>
+            <li><i class="fa-solid fa-check"></i> Controles físicos con Makey Makey</li>
+            <li><i class="fa-solid fa-check"></i> Introducción a la electrónica</li>
+          </ul>
+          <div class="prog-chips">
+            <span class="prog-chip">🎮 Scratch</span>
+            <span class="prog-chip">⚡ Makey Makey</span>
+          </div>
+          <button class="prog-btn btn-green" onclick="openInscModal()">RESERVAR CUPO</button>
+        </div>
+      </div>
+
+      <!-- Programa 3 -->
+      <div class="prog-card">
+        <div class="prog-stripe" style="background:linear-gradient(90deg,#f59e0b,#ef4444);"></div>
+        <div class="prog-body">
+          <span class="prog-age age-amber">9 a 11 años</span>
+          <div class="prog-title">Robótica con mBot</div>
+          <div class="prog-weeks"><i class="fa-regular fa-calendar"></i> Sábados • 12 hrs • 6 clases</div>
+          <ul class="prog-features">
+            <li><i class="fa-solid fa-check"></i> Programación por bloques</li>
+            <li><i class="fa-solid fa-check"></i> Uso de sensores para interactuar con el entorno</li>
+            <li><i class="fa-solid fa-check"></i> Introducción a algoritmos</li>
+          </ul>
+          <div class="prog-chips">
+            <span class="prog-chip">🤖 robótica</span>
+            <span class="prog-chip">🎉 Proyectos</span>
+          </div>
+          <button class="prog-btn" onclick="openInscModal()">RESERVAR CUPO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALERÍA ═══ -->
+<section class="galeria" id="galeria">
+  <div class="container">
+    <div class="galeria-header">
+      <div>
+        <span class="section-label">En acción</span>
+        <h2>Momentos <span class="hi">mágicos</span></h2>
+      </div>
+    </div>
+    <div class="galeria-grid">
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/presentando-sus-programas.webp" alt="Scratch" class="galeria-img"> 
+        <div class="galeria-caption">Presentando sus proyectos</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/makeymakey.webp" alt="Makey Makey" class="galeria-img">
+        <div class="galeria-caption">Descubriendo Makey Makey</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/conductor-o-aislante.webp" alt="Makey Makey" class="galeria-img">
+        <div class="galeria-caption">Conductor o aislante</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/armando-mbot.webp" alt="Clase Scratch" class="galeria-img">
+        <div class="galeria-caption">Robótica con mBot</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/mbot-programa.webp" alt="mBot" class="galeria-img">
+        <div class="galeria-caption">Programando su primer robot</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/reto-en-equipo.webp" alt="Reto en equipo" class="galeria-img">
+        <div class="galeria-caption">Reto en equipo</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/reto-tangram.webp" alt="eto en equipo" class="galeria-img"> 
+        <div class="galeria-caption">Reto Tangram</div>
+      </div>
+      <div class="galeria-item" onclick="openViewer(this)">
+        <img src="images/ingenieros_junior.webp" alt="Ingenieros Junior" class="galeria-img">
+        <div class="galeria-caption">Ingenieros Junior</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<!--<section class="testimonios" id="testimonios">
+  <div class="container">
+    <div class="testimonios-header">
+      <span class="section-label">Lo que dicen las familias</span>
+      <h2>Familias que <span class="hi">confían</span> en nosotros</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Mi hija de 8 años lleva 3 meses y ya creó su primer videojuego con Scratch. Ahora me explica cómo funciona la programación. ¡Quedé impresionada!"</p>
+        <div class="test-author">
+          <div class="test-avatar av-orange">MR</div>
+          <div>
+            <div class="test-name">María R.</div>
+            <div class="test-role">Mamá de Sofía, 8 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Lo que me gustó es que no es solo frente a una pantalla. Mi hijo usa el Makey Makey para hacer controles con frutas. ¡Le encanta venir cada sábado!"</p>
+        <div class="test-author">
+          <div class="test-avatar av-purple">CA</div>
+          <div>
+            <div class="test-name">Carlos A.</div>
+            <div class="test-role">Papá de Lucas, 10 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"La mejor inversión que hemos hecho. Mi hijo no quería parar de hablar de su robot. Ahora quiere ser ingeniero y ya enseña a sus primos."</p>
+        <div class="test-author">
+          <div class="test-avatar av-teal">VL</div>
+          <div>
+            <div class="test-name">Valeria L.</div>
+            <div class="test-role">Mamá de Mateo, 12 años</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>-->
+
+<!-- ═══ INSCRIPCIÓN (inline) ═══ -->
+<section class="inscripcion" id="inscripcion">
+  <div class="container">
+    <div class="inscripcion-grid">
+      <div class="inscripcion-left">
+        <span class="section-label">Inscripción</span>
+        <h2>¡Reserva el lugar de tu hijo/a hoy!</h2>
+        <p>Los cupos son limitados para garantizar atención personalizada. Completa el formulario y te contactamos en menos de 24 horas.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <a href="https://wa.me/50764879594" style="color:inherit;">+507 6487-9594 (WhatsApp)</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <a href="mailto:antech34@gmail.com" style="color:inherit;">antech34@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <span>Arraiján, Panamá Oeste</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <span>Respuesta en menos de 24 horas</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="form-card">
+          <div id="inline-form-body">
+            <div class="form-title">Quiero inscribir a mi hijo/a 🚀</div>
+            <form id="inline-form" action="https://formspree.io/f/xojbgwnn" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Tu nombre (papá/mamá)</label>
+                  <input type="text" name="nombre_padre" placeholder="Ana Gómez" required>
+                </div>
+                <div class="form-group">
+                  <label>Nombre de tu hijo/a</label>
+                  <input type="text" name="nombre_hijo" placeholder="Sofía Gómez" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Edad</label>
+                  <select name="edad" required>
+                    <option value="">Selecciona...</option>
+                    <option>7 años</option><option>8 años</option><option>9 años</option>
+                    <option>10 años</option><option>11 años</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Programa</label>
+                  <select name="programa" required>
+                    <option value="">Selecciona...</option>
+                    <option>Programación Básica</option>
+                    <option>Robótica con mBot</option>
+                    <option>No sé, necesito orientación</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>WhatsApp o Email</label>
+                <input type="text" name="contacto" placeholder="+507 6000-0000 o tu@email.com" required>
+              </div>
+              <div class="form-group">
+                <label>¿Alguna pregunta?</label>
+                <textarea name="comentario" placeholder="Ej: ¿Tienen clases los sábados?"></textarea>
+              </div>
+              <input type="hidden" name="_subject" value="Nueva inscripción — An EduTech 🚀">
+              <button type="submit" class="form-submit"><i class="fa-solid fa-paper-plane"></i> Quiero más información</button>
+            </form>
+            <p class="form-disclaimer">🔒 Tu información está segura. No spam, solo te contactamos para coordinar tu clase.</p>
+          </div>
+          <div class="form-success" id="inline-success">
+            <div class="form-success-icon">🎉</div>
+            <h3>¡Recibimos tu solicitud!</h3>
+            <p>Te contactaremos en menos de 24 horas por WhatsApp o email.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-body">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <img src="images/logo.jpg" alt="An EduTech logo">
+          <div class="logo-text" style="color:white;">An <span>EduTech</span></div>
+        </a>
+        <p style="text-align: justify;">Educación STEAM para niños y adolescentes. Hacemos que la tecnología sea accesible, creativa y divertida.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/anedu.tech" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://facebook.com/share/1Kh6jtpCt" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://wa.me/50764879594" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        <div style="margin-top:24px;font-size:11px;">© 2025 An EduTech · Todos los derechos reservados</div>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Recibe novedades</h4>
+        <p>Talleres, ferias y descuentos para familias.</p>
+        <form class="newsletter-form" action="https://formspree.io/f/mgobvopo" method="POST">
+          <input type="email" name="email" placeholder="tu@email.com" required>
+          <button type="submit">ENVIAR</button>
+        </form>
+        <div style="margin-top:14px;font-size:11px;opacity:0.5;">Hecho con ❤️ para los futuros innovadores</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Una iniciativa educativa con sede en Arraiján, Panamá Oeste</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ WA FLOAT ═══ -->
+<a href="https://wa.me/50764879594?text=Hola%2C%20me%20interesa%20inscribir%20a%20mi%20hijo%2Fa%20en%20An%20EduTech%20%F0%9F%9A%80" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<!-- ═══ MODAL INSCRIPCIÓN ═══ -->
+<div class="modal-overlay" id="insc-modal" onclick="if(event.target===this)closeInscModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Inscripción rápida 🚀</h3>
+      <button class="modal-close" onclick="closeInscModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="modal-form-body">
+        <form class="modal-form" id="modal-insc-form" action="https://formspree.io/f/xojbgwnn" method="POST">
+          <div class="form-group">
+            <label>Nombre del niño / niña</label>
+            <input type="text" name="nombre_hijo" placeholder="Mateo López" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Edad</label>
+              <input type="number" name="edad" min="7" max="11" placeholder="9" required>
+            </div>
+            <div class="form-group">
+              <label>Programa</label>
+              <select name="programa" required>
+                <option value="">Selecciona...</option>
+                <option>Programación Básica</option>
+                <option>Robótica con mBot</option>
+                <option>No sé, necesito orientación</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nombre del padre / madre</label>
+            <input type="text" name="nombre_padre" placeholder="Carolina Morales" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>WhatsApp</label>
+              <input type="tel" name="telefono" placeholder="+507 6000-0000" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="tu@email.com" required>
+            </div>
+          </div>
+          <input type="hidden" name="_subject" value="Nueva inscripción (modal) — An EduTech 🚀">
+          <button type="submit" class="form-submit"><i class="fa-solid fa-paper-plane"></i> ENVIAR INSCRIPCIÓN</button>
+          <p class="form-disclaimer">Tus datos están protegidos · Nunca los compartiremos</p>
+        </form>
+      </div>
+      <div class="modal-success" id="modal-success" style="display:none;">
+        <div class="si">🎉</div>
+        <h3>¡Inscripción recibida!</h3>
+        <p>Nos pondremos en contacto contigo en menos de 24 horas para confirmar la inscripción.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL CONTACTO ═══ -->
+<div class="modal-overlay" id="contact-modal" onclick="if(event.target===this)closeContactModal()">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-header">
+      <h3>Contáctanos</h3>
+      <button class="modal-close" onclick="closeContactModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="contact-options">
+        <a href="mailto:antech34@gmail.com" class="contact-option">
+          <div class="co-left">
+            <span class="co-icon">📧</span>
+            <div>
+              <div class="co-label">Email</div>
+              <div class="co-value">antech34@gmail.com</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:var(--muted);"></i>
+        </a>
+        <a href="https://wa.me/50764879594" target="_blank" class="contact-option">
+          <div class="co-left">
+            <span class="co-icon">💬</span>
+            <div>
+              <div class="co-label">WhatsApp</div>
+              <div class="co-value">+507 6487-9594</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:var(--muted);"></i>
+        </a>
+        <div class="contact-option" style="cursor:default;">
+          <div class="co-left">
+            <span class="co-icon">📍</span>
+            <div>
+              <div class="co-label">Ubicación</div>
+              <div class="co-value">Arraiján, Panamá Oeste</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">
+        Respondemos en menos de 24 horas
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PHOTO VIEWER ═══ -->
+<div class="photo-viewer" id="photo-viewer" onclick="if(event.target===this)closeViewer()">
+  <div class="pv-inner">
+    <button class="pv-close" onclick="closeViewer()">×</button>
+    <img id="pv-img" src="" class="pv-img" alt="">
+    <div id="pv-caption" class="pv-caption"></div>
+  </div>
+</div>
+
+<script>
+  // ── Mobile menu
+  function toggleMobile() { document.getElementById('mobile-menu').classList.toggle('open'); }
+
+  // ── Modals
+  function openInscModal()    { document.getElementById('insc-modal').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeInscModal()   { document.getElementById('insc-modal').classList.remove('open'); document.body.style.overflow=''; }
+  function openContactModal() { document.getElementById('contact-modal').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeContactModal(){ document.getElementById('contact-modal').classList.remove('open'); document.body.style.overflow=''; }
+
+  // ── ESC closes all
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeInscModal(); closeContactModal(); closeViewer(); }
+  });
+
+  // ── Photo viewer
+  function openViewer(el) {
+    const img = el.querySelector('img');
+    const cap = el.querySelector('.galeria-caption');
+    if (img) { document.getElementById('pv-img').src = img.src; document.getElementById('pv-img').style.display='block'; }
+    else { document.getElementById('pv-img').style.display='none'; }
+    document.getElementById('pv-caption').textContent = cap ? cap.textContent : '';
+    document.getElementById('photo-viewer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeViewer() { document.getElementById('photo-viewer').classList.remove('open'); document.body.style.overflow=''; }
+
+  // ── Formspree AJAX — Modal form
+  document.getElementById('modal-insc-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.textContent = 'Enviando...'; btn.disabled = true;
+    try {
+      const res = await fetch(this.action, { method:'POST', body: new FormData(this), headers:{'Accept':'application/json'} });
+      if (res.ok) { document.getElementById('modal-form-body').style.display='none'; document.getElementById('modal-success').style.display='block'; }
+      else { btn.textContent='Error — intenta de nuevo'; btn.disabled=false; }
+    } catch { btn.textContent='Sin conexión'; btn.disabled=false; }
+  });
+
+  // ── Formspree AJAX — Inline form
+  document.getElementById('inline-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...'; btn.disabled = true;
+    try {
+      const res = await fetch(this.action, { method:'POST', body: new FormData(this), headers:{'Accept':'application/json'} });
+      if (res.ok) { document.getElementById('inline-form-body').style.display='none'; document.getElementById('inline-success').style.display='block'; }
+      else { btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Error — intenta de nuevo'; btn.disabled=false; }
+    } catch { btn.innerHTML='Sin conexión'; btn.disabled=false; }
+  });
+
+  // ── Newsletter toast
+  function subscribeNewsletter() {
+    const f = document.getElementById('footer-email');
+    if (!f.value.trim()) return;
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;padding:14px 28px;border-radius:99px;font-size:13px;box-shadow:var(--shadow-lg);z-index:9999;white-space:nowrap;';
+    toast.textContent = '✅ ¡Gracias! Te enviamos las novedades.';
+    document.body.appendChild(toast);
+    f.value = '';
+    setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.4s'; setTimeout(()=>toast.remove(),400); }, 2400);
+  }
+
+  // ── Floating bubbles in hero
+  (function() {
+    const c = document.getElementById('bubbles-wrap');
+    for (let i = 0; i < 28; i++) {
+      const b = document.createElement('div');
+      b.className = 'bubble';
+      const s = Math.random()*55+12;
+      Object.assign(b.style, { width:s+'px', height:s+'px', left:Math.random()*100+'%', opacity: Math.random()*0.35+0.1, animationDuration:(Math.random()*16+14)+'s', animationDelay:-(Math.random()*24)+'s' });
+      c.appendChild(b);
+    }
+  })();
+
+  // ── Scroll reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.nos-card,.prog-card,.test-card,.paso,.galeria-item').forEach(el => {
+    el.style.opacity='0'; el.style.transform='translateY(22px)'; el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+    revealObs.observe(el);
+  });
+
+  // ── Image fade-in
+  document.querySelectorAll('img').forEach(img => {
+    img.style.opacity='0';
+    const show = () => { img.style.transition='opacity 0.5s ease'; img.style.opacity='1'; };
+    if (img.complete) show(); else img.onload = show;
+  });
+  document.querySelector('.newsletter-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button');
+      btn.textContent = '...';
+      try {
+        const res = await fetch(this.action, { method:'POST', body: new FormData(this), headers:{'Accept':'application/json'} });
+        if (res.ok) {
+          this.reset();
+          const toast = document.createElement('div');
+          toast.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1E3A5F;color:white;padding:14px 28px;border-radius:99px;font-size:13px;box-shadow:0 12px 48px rgba(30,58,95,0.15);z-index:9999;white-space:nowrap;';
+          toast.textContent = '✅ ¡Gracias! Te enviamos las novedades.';
+          document.body.appendChild(toast);
+          setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.4s'; setTimeout(()=>toast.remove(),400); }, 2400);
+        }
+      } catch { btn.textContent = 'ENVIAR'; }
+  });
+</script>
+</body>
+</html>
