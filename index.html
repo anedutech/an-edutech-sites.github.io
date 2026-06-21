@@ -92,9 +92,6 @@
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
     .nav-links a:hover { color: var(--navy); }
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-direction: column; gap: 5px; }
-      @media (min-width: 861px) {
-        #btn-contacto { display: inline-flex !important; }
-      }
     .hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 99px; display: block; transition: all 0.3s; }
     .mobile-menu { display: none; flex-direction: column; padding: 16px 28px 24px; border-top: 1px solid var(--border); gap: 16px; }
     .mobile-menu a { font-weight: 600; font-size: 16px; color: var(--text); }
@@ -470,10 +467,7 @@
       .nosotros-grid { grid-template-columns: 1fr; }
       .nos-cards-grid { grid-template-columns: 1fr 1fr; }
       .inscripcion-grid { grid-template-columns: 1fr; }
-      .nav-links  {display: none;}
-      @media (min-width: 861px) {
-        #btn-contacto { display: inline-flex !important; }
-      }
+      .nav-links, .nav-cta .btn { display: none; }
       .hamburger { display: flex; }
     }
     @media (max-width: 680px) {
@@ -511,8 +505,8 @@
         <li><a href="#galeria">Galería</a></li>
         <li><!--a href="#testimonios">Testimonios</a--></li>
       </ul>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button onclick="openContactModal()" class="btn btn-dark"  style="font-size:13px;padding:10px 20px; display:none;" id="btn-contacto">Contacto</button>
+      <div class="nav-cta" style="display:flex;align-items:center;gap:12px;">
+        <button onclick="openContactModal()" class="btn btn-dark" style="font-size:13px;padding:10px 20px;">Contacto</button>
         <button onclick="openInscModal()" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Inscríbete</button>
         <button class="hamburger" onclick="toggleMobile()" aria-label="Menú">
           <span></span><span></span><span></span>
@@ -553,7 +547,7 @@
             <div class="screen-bar">
               <div class="screen-dot"></div><div class="screen-dot"></div><div class="screen-dot"></div>
             </div>
-            <div class="screen-body"> 
+            <div class="screen-body">
               <div class="code-snippet">
                 <div class="kw">function</div>
                 <div><span class="fn">crearJuego</span>() {</div>
@@ -624,6 +618,7 @@
             diseñadas para fortalecer la comunicación y el trabajo en equipo.
         </p>
         <div class="nosotros-nums">
+
           <div>
             <div class="nos-num">3</div>
             <div class="nos-label">Programas</br> disponibles</div>
